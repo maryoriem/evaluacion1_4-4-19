@@ -1,0 +1,48 @@
+<!--Dibujo resultado de repetición (patrón2)-->
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        *{ margin:0; padding:0;}
+        body {height:100%; width:100%; overflow:hidden;}
+        /*boton menu*/
+        #menu { top: 1rem; right: 1rem; position: fixed; z-index:9999; } 
+    </style>
+    <title>Evaluación 1</title>
+</head>
+<body>
+    <!-- este será el munú -->
+    <select id="menu" onchange="location=this.value;">
+        <option value="index.html">index.html</option>
+        <option value="segundo.html" >segundo.html</option>
+        <option value="tercero.html" selected>tercero.html</option>
+        <option value="cuarto.html">cuarto.html</option>
+
+    </select>
+    <div id="aqui"></div>
+    <!-- vamos a buscar la biblioteca -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+   <script>
+        function setup() {
+            createCanvas(windowWidth,windowHeight).parent("aqui");
+            noLoop();
+        }
+        function draw() {      
+        background(0);  
+            for (var x = 0; x <= width; x+=5){
+                for (var y = 0; y<= height; y+=5){
+                    fill(random(255),0,30,random(255));
+                        rect(x,y, 100, 10)
+                       }
+                }
+            }
+                    
+            function windowResized(){
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>

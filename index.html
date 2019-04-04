@@ -1,0 +1,86 @@
+<!--Dibujo resultado de consulta a JSON-->
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        *{ margin:0; padding:0;}
+        body {height:100%; width:100%; overflow:hidden;}
+        /*boton menu*/
+        #menu { top: 1rem; right: 1rem; position: fixed; z-index:9999; } 
+    </style>
+    <title>Evaluación 1</title>
+</head>
+<body>
+    <!-- este será el munú -->
+    <select id="menu" onchange="location=this.value;">
+        <option value="index.html" selected>index.html</option>
+        <option value="segundo.html">segundo.html</option>
+        <option value="tercero.html">tercero.html</option>
+        <option value="cuarto.html">cuarto.html</option>
+
+  </select>
+    <!-- este div recibirá al canvas-->
+    <div id="aqui"></div>
+    <!-- vamos a buscar la biblioteca -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+    <script>
+        //Ahora podemos usar la biblioteca que fuimos a buscar
+        //Dibujo resultado de consulta a JSON
+        //define variables sin valor
+        var data, total;
+        //ejecuta antes que nada libreria Json. 
+        function preload() {
+            //Datos que están en ese link: 
+            //[{"album":"Speak \u0026 Spell","ranking":192},{"album":"Some Great Reward","ranking":54},{"album":"Music for the Masses","ranking":35},               {"album":"Violator","ranking":7},{"album":"Songs of Faith and Devotion","ranking":1},{"album":"Sounds of the Universe","ranking":3}]
+            //Se valida en https://jsonlint.com/
+            //http://myjson.com/ → genera un url donde quedan almacenados los datos 
+             data = loadJSON('https://api.myjson.com/bins/csfl6');                    
+        }
+ 
+        function setup() {
+            createCanvas(windowWidth,windowHeight).parent("aqui");
+            background(225);
+//??
+            print(data);
+            noLoop();
+            noStroke();
+            textAlign(CENTER);
+            //al comienzo n es igual a 0, mientras n es menor que 6, sumar n+1
+            for(var n = 0; n < 6; n++){
+                //si el ranking del dato en la posición n es menor a 10:    
+                if(data[n].ranking < 10){
+                    //rellenar de negro
+                    fill(255,0,0);
+                } else {
+                    //de lo contratio, rellenar rojo
+                    fill(100);
+                }
+                ellipse(
+                    //posición en x
+                    width/7*(n+1),
+                    //posición en y
+                    data[n].ranking+200,
+                    //ancho y alto 
+                    10,
+                    10);                
+                fill(0);
+                
+                text(
+                    data[n].album,
+                    width/7*(n+1),
+                    (height-200)
+                    ); 
+            
+            }
+        }
+        
+        function windowResized(){
+            resizeCanvas(windowWidth, windowHeight);
+            background(225); 
+        }
+    </script>
+</body>
+</html>
